@@ -17,7 +17,7 @@ object ActiveRecordBuild extends Build {
 
   val defaultSettings = Defaults.defaultSettings ++ Seq(
     version := (if (isRelease) _version else _version + "-SNAPSHOT"),
-    organization := "com.github.aselab",
+    organization := "com.github.kuxuxun",
     scalaVersion := "2.10.2",
     crossScalaVersions := Seq("2.10.2", "2.9.2"),
     resolvers ++= defaultResolvers,
@@ -37,13 +37,7 @@ object ActiveRecordBuild extends Build {
     testOptions in Test ++= (if (Option(System.getProperty("ci")).isDefined) Seq(Tests.Argument("junitxml", "console")) else Nil),
     parallelExecution in Test := false,
     compileOrder in Compile := CompileOrder.JavaThenScala,
-    publishTo <<= version { (v: String) =>
-      val nexus = "https://oss.sonatype.org/"
-      if (v.trim.endsWith("SNAPSHOT"))
-        Some("snapshots" at nexus + "content/repositories/snapshots")
-      else
-        Some("releases"  at nexus + "service/local/staging/deploy/maven2")
-    },
+    publishTo := Some(Resolver.file("scalaactiverecord",file("/modules/repository"))(Patterns(true, Resolver.mavenStyleBasePattern))),
     publishMavenStyle := true,
     publishArtifact in Test := false,
     pomIncludeRepository := { _ => false },
