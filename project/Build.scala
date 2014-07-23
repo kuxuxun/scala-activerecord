@@ -90,14 +90,14 @@ object ActiveRecordBuild extends Build {
   lazy val play2: Project = Project("play2", file("activerecord-play2"),
     settings = defaultSettings ++ Seq(
       name := "scala-activerecord-play2",
-      resolvers += "typesafe" at "http://repo.typesafe.com/typesafe/repo",
+      resolvers += "typesafe" at "http://repo.typesafe.com/typesafe/releases/",
       libraryDependencies <++= (scalaVersion) { scalaVersion =>
         scalaVersion match {
           case s if s.startsWith("2.10") => {
-            val playVersion = "2.1.0"
+            val playVersion = "2.2.2-RC4"
             Seq(
-              "play" %% "play" % playVersion % "provided",
-              "play" %% "play-jdbc" % playVersion % "provided"
+              "com.typesafe.play" %% "play" % playVersion % "provided",
+              "com.typesafe.play" %% "play-jdbc" % playVersion % "provided"
             )
           }
           case _ => {
