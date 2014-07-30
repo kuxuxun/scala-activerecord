@@ -2,7 +2,7 @@ import sbt._
 import Keys._
 
 object ActiveRecordBuild extends Build {
-  val _version = "0.2.3"
+  val _version = "0.2.5"
   val isRelease = System.getProperty("release") == "true"
 
   def specs2(key: String, version: String) =
@@ -12,11 +12,12 @@ object ActiveRecordBuild extends Build {
 
   val defaultResolvers = Seq(
     Resolver.sonatypeRepo("snapshots"),
-    Classpaths.typesafeReleases
+    Classpaths.typesafeReleases,
+    "Kuxuxn Repository" at "http://kuxuxun.github.io/modules/repository/"
   )
 
   val defaultSettings = Defaults.defaultSettings ++ Seq(
-    version := (if (isRelease) _version else _version + "-SNAPSHOT"),
+    version := (if (isRelease) _version else _version),
     organization := "com.github.kuxuxun",
     scalaVersion := "2.10.2",
     crossScalaVersions := Seq("2.10.2", "2.9.2"),
@@ -56,7 +57,7 @@ object ActiveRecordBuild extends Build {
     settings = defaultSettings ++ Seq(
       name := "scala-activerecord",
       libraryDependencies ++= Seq(
-        "com.github.aselab" %% "squeryl" % "0.9.6-M1",
+        "com.github.kuxuxun" %% "squeryl" % "0.9.7",
         "com.typesafe" % "config" % "1.0.0",
         "com.jolbox" % "bonecp" % "0.7.1.RELEASE",
         "io.backchat.inflector" %% "scala-inflector" % "1.3.5",

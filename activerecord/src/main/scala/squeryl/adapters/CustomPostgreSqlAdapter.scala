@@ -30,7 +30,7 @@ class CustomPostgreSqlAdapter extends PostgreSqlAdapter{
       s.log(sw.toString)
     fillParamsInto(params, ps)
     ps.executeUpdate
-    1 // for avoiding update. Error when table was patitioned, executeUpdate always return 0
+    1.toInt // for avoiding erro on updating table whitch is patitioned. (executeUpdate always return 0)
   }
 
 }
